@@ -24,5 +24,4 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^portal/', include("portal.urls", namespace="portal")),
     url(r'^portal/', include("django.contrib.auth.urls")),
-    url(r'^files/', include("files.urls", namespace="files")),
 ]
