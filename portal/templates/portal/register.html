@@ -1,0 +1,29 @@
+{% extends "portal/base.html" %}
+{% load crispy_forms_tags %}
+{% block start %}
+<div class="main">
+  <section class="signup">
+    <!-- <img src="images/signup-bg.jpg" alt=""> -->
+    <div class="container">
+        <div class="content-section col-md-8 col-md-offset-2">
+          <div class="signup-content">
+          <center>
+            <form method="POST" style="border: 1px solid black; margin: 4%; padding:10%; border-radius:1%;" id="signup-form" class="signup-form">
+              {% csrf_token %}
+              <fieldset class="form-group">
+                {{ form|crispy }}
+              </fieldset>
+              <div class="form-group">
+                  <input type="submit" name="submit" id="submit" class="form-submit" value="Register"/>
+              </div>
+              <div class="loginhere">
+                Already have an account ? <a href="{% url 'portal:login' %}" class="loginhere-link">Login here !</a>
+              </div>
+            </form>
+          </center>
+         </div>
+       </div>
+     </div>
+   </section>
+ </div>
+{% endblock start %}
