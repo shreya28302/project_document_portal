@@ -1,0 +1,63 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+#define fr(a,b,c) for(long long a=b; a<c; a++)
+#define pr(a,b,c) for(long long a=c; a>=b; a--)
+
+#define all(v) v.begin(),v.end() 
+#define pb push_back
+#define mp make_pair
+#define ll long long
+
+#define vll vector<ll>
+#define pll pair<ll,ll>
+#define vpll vector<pair<ll,ll>>
+#define vvll vector<vector<ll>>
+#define mll map<ll,ll>
+
+ll max(ll a,ll b){
+    if(a>b)return a;
+    return b;
+}
+
+ll min(ll a,ll b){
+    if(a<b)return a;
+    return b;
+}
+ 
+ll gcd(ll x, ll y){
+    if(x==0) return y;
+    return gcd( y%x ,x);
+}
+ 
+ll power(ll x, ll y, ll m){
+    if (y == 0)
+        return 1;
+    ll p = power(x, y / 2, m) % m;
+    p = (p * p) % m;
+ 
+    return (y % 2 == 0) ? p : (x * p) % m;
+}
+ 
+void fast(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+ 
+void solve(){
+    
+}
+ 
+int main(){
+    
+    fast();
+    
+    int t;
+    cin >> t;
+    
+    while(t--) solve();
+    
+    return 0;
+    
+}

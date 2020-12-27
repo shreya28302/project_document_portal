@@ -1,0 +1,20 @@
+{% extends 'user_page/base.html' %}
+{% block fine %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">{{title}}</h1>
+</div>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Disliked by</h1>
+</div>
+<div class="container">
+    {% for disliker in dislikers %}
+    <div class="container">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h3 class="m-0 font-weight-bold text-primary"><a href="{% url 'others:dashboard' uname=disliker.user.username %}">{{ disliker.user.username }}</a></h3>
+          </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

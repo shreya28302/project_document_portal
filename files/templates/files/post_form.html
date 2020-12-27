@@ -1,0 +1,20 @@
+{% extends 'user_page/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block fine %}
+<form class="user" action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}{{noodle_form|crispy}}
+
+<fieldset class="form-group">
+
+ {{ form|crispy }}
+
+</fieldset>
+<div class="form-group">
+  <button class="btn btn-outlint-info btn-primary" type="submit">Save</button>
+  <p class="mb-4">Go to drafts and post </p>
+</div>
+</form>
+
+<script>var editor = new MediumEditor('.editable');</script>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'user_page/base.html' %}
+
+{% block fine %}
+<div class="container">
+  {% for post in post_list %}
+  <div class="container">
+    {% if post.author.username == uname %}
+    <div class="post row">
+      <div class="col-xl-8 col-lg-7">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h3 class="m-0 font-weight-bold text-primary text-uppercase"><a href="{% url 'files:post_detail' pk=post.pk %}">{{ post.title }}</a></h3>
+          </div>
+          <div class="date card-body">
+           <p>Posted by : {{ post.author.username }}</p>
+           <p>Uploaded On : {{ post.uploaded_at|date:'d-m-Y' }}</p>
+          </div>
+        </div>
+     </div>
+   </div>
+   {% endif %}
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

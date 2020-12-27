@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'bootstrap3',
     'crispy_forms',
     'portal',
+    'user_page',
+    'files',
+    'others',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -138,5 +142,5 @@ EMAIL_HOST_USER="tacc2325@gmail.com"
 EMAIL_HOST_PASSWORD="#"
 ##################################################
 
-LOGIN_REDIRECT_URL = "test"
-LOGOUT_REDIRECT_URL = "thanks"
+LOGIN_REDIRECT_URL = "user_page/index.html"
+LOGOUT_REDIRECT_URL = "home"

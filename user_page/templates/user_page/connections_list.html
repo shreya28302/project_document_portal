@@ -1,0 +1,26 @@
+{% extends 'user_page/base.html' %}
+
+{% block fine %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">{{stat}}</h1>
+</div>
+<div class="container">
+    {% for us in users %}
+    <div class="container">
+        {% if stat in 'FOLLOWING' %}
+        <div class="card shadow mb-4">
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h3 class="m-0 font-weight-bold text-primary"><a href="{% url 'others:dashboard' uname=us.following.username %}">{{ us.following.username }}</a></h3>
+          </div>
+        </div>
+        {% else %}
+        <div class="card shadow mb-4">
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h3 class="m-0 font-weight-bold text-primary"><a href="{% url 'others:dashboard' uname=us.follower.username %}">{{ us.follower.username }}</a></h3>
+          </div>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

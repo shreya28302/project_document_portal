@@ -1,0 +1,55 @@
+{% extends 'user_page/base.html' %}
+
+{% block fine %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">{{post.author.username}}</h1>
+</div>
+{% if post.published_date %}
+<div class="col-xl-3 col-md-6 mb-4">
+  <div class="card border-left-primary shadow h-100 py-2">
+    <div class="card-body">
+      <div class="row no-gutters align-items-center">
+        <div class="col mr-2">
+          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><h1 class="m-0 font-weight-bold text-warning text-uppercase">{{ post.title }}</h1></div>
+          <div class="h5 mb-0 font-weight-bold text-gray-800"><p class='postcontent m-0 text-secondary'>Description : {{ post.description|safe|linebreaksbr }}</p></div>
+          <hr>
+          <a class="btn btn-secondary btn-lg " href="{{post.document.url}}" target = "_blank"><i class="fas fa-w fa-file"></i></a>  |  <a class="btn btn-secondary btn-lg" href="{{post.document.url}}" download><i class="fas fa-w fa-download"></i></a>
+        </div>
+      </div>
+      <div class="mb-4">
+        <div class="date postdate m-0 font-weight-bold text-secondary">{{ post.published_date }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<hr>
+{% if post.published_date %}
+
+    <a class="btn btn-info btn-sm" href="{% url 'files:like' pk=post.pk %}">
+      <i class="fas fa-w fa-thumbs-up"></i>
+    </a> : <a href="{% url 'files:likers' pk=post.pk %}">__</a>
+
+ |
+    <a class="btn btn-info btn-sm" href="{% url 'files:dislike' pk=post.pk %}">
+      <i class="fas fa-w fa-thumbs-down"></i>
+    </a> : <a href="{% url 'files:dislikers' pk=post.pk %}">__</a>
+
+
+<hr>
+<a class="btn btn-dark btn-sm" href="{% url 'files:add_comment_to_post' pk=post.pk %}"><i class="fas fa-w fa-plus"></i><span> comment</span></a>
+<div class="container mb-4">
+  {% for comment in post.comments.all %}
+  <br>
+  {% if user.is_authenticated or comment.approved_comment %}
+  <div class="h5 mb-0 font-weight-bold text-gray-800"><p>{{ comment.text|safe|linebreaks }}</p></div>
+  <div class="text-sm font-weight-bold text-primary mb-1"><p>by: <strong>{{ comment.author }}</strong></p></div>
+  <div class="text-xs text-dark mb-1"><p>{{ comment.created_date }}</p></div>
+  {% endif %}
+  {% empty %}
+  <p>No comments posted.</p>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}
