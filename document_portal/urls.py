@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from document_portal import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^$', views.HomePage.as_view(), name="home"),
@@ -29,3 +31,6 @@ urlpatterns = [
     url(r'^files/', include("files.urls", namespace="files")),
     url(r'^others/', include("others.urls", namespace="others")),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

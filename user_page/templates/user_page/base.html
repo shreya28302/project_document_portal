@@ -46,11 +46,21 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
+              <a class="nav-link collapsed" href="{% url 'user_page:myprofile' pk=user.id %}"
+               data-toggle="collapse" data-target="#collapseTwo"
+               aria-expanded="true" aria-controls="collapseTwo">
+               <i class="fas fa-fw "></i>
+               <span>My Profile</span>
+             </a>
+            </li>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
               <a class="nav-link collapsed" href="{% url 'user_page:userdashboard' pk=user.id %}"
                data-toggle="collapse" data-target="#collapseTwo"
                aria-expanded="true" aria-controls="collapseTwo">
                <i class="fas fa-fw "></i>
-               <span>My Page</span>
+               <span>My Feed</span>
              </a>
             </li>
 
@@ -80,14 +90,14 @@
               data-toggle="collapse" data-target="#collapseUtilities"
               aria-expanded="true" aria-controls="collapseUtilities">
               <i class="fas fa-fw fa-file"></i>
-              <span>Your Files</span>
+              <span>My Posts (Files)</span>
             </a>
 
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-             <a class="nav-link collapsed" href="#"
+             <a class="nav-link collapsed" href="{% url 'files:download' %}"
               data-toggle="collapse" data-target="#collapseUtilities"
               aria-expanded="true" aria-controls="collapseUtilities">
               <i class="fas fa-fw fa-download"></i>
@@ -231,8 +241,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="{% url 'user_page:updateprofile' pk=user.id %}" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{pro.first_name}}{{pro.last_name}}</span>
-                                <img src="{{pro.image.url}}" alt="ok" class="img-profile rounded-circle">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{profile.first_name}} {{profile.last_name}}</span>
+                                <img src="{{profile.image.url}}" alt="profile" class="img-profile rounded-circle">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

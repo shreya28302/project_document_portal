@@ -32,7 +32,6 @@
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block"><img src="{{pro.image.url}}" alt="ok"></div>
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
@@ -43,7 +42,7 @@
                                   <h2 class="account-heading">{{ user.username }}</h2>
                                   <p class="text-secondary">{{ user.email }}</p>
                                 </div>
-                                {% csrf_token %}{{ noodle_form|crispy }}
+                                {% csrf_token %}
 
                               <fieldset class="form-group">
                                {{ formset|crispy }}

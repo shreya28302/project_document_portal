@@ -32,7 +32,7 @@ class DocumentPost(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey('files.DocumentPost', related_name='comments', on_delete=models.DO_NOTHING)
+    post = models.ForeignKey('files.DocumentPost', related_name='comments', on_delete=models.CASCADE)
     author = models.CharField(max_length=200)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
@@ -47,7 +47,7 @@ class Comment(models.Model):
 
 
 class Like(models.Model):
-    post = models.ForeignKey('files.DocumentPost', related_name='liked_post', on_delete=models.DO_NOTHING)
+    post = models.ForeignKey('files.DocumentPost', related_name='liked_post', on_delete=models.CASCADE)
     user = models.ForeignKey('auth.User', related_name='liker', on_delete=models.DO_NOTHING)
     date_created = models.DateTimeField(auto_now_add=True)
 
@@ -55,9 +55,16 @@ class Like(models.Model):
         return '{} : {}'.format(self.user, self.post)
 
 class Dislike(models.Model):
-    post = models.ForeignKey('files.DocumentPost', related_name='disliked_post', on_delete=models.DO_NOTHING)
+    post = models.ForeignKey('files.DocumentPost', related_name='disliked_post', on_delete=models.CASCADE)
     user = models.ForeignKey('auth.User', related_name='disliker', on_delete=models.DO_NOTHING)
     date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '{} : {}'.format(self.user, self.post)
+
+class Download(models.Model):
+    post = models.ForeignKey('files.DocumentPost', on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.User', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return '{} : {}'.format(self.user, self.post)

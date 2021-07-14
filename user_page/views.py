@@ -8,98 +8,144 @@ from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.contrib.auth.models import User
 
-from .models import UserProfile,Connection
-from files.models import DocumentPost
-
 from .forms import ProfileUpdateForm,SearchForm
+from .models import UserProfile,Connection
+from files.models import DocumentPost, Download
 
-from django.forms.models import inlineformset_factory
-from django.core.exceptions import PermissionDenied
 
 # Create your views here.
 @login_required
 def UserDashboard(request, pk):
     context ={}
-    there = 0
-    for pr in UserProfile.objects.all():
-        if pr.user_id == pk:
-            there = 1
-            break
 
-    if there==1:
-        context["pro"] = UserProfile.objects.get(user_id=pk)
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        messages.warning(request, 'no profile')
+    else:
+        context['profile'] = profile
 
     context["posts"] = DocumentPost.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
     context["followed_by_me"] = Connection.objects.filter(follower=request.user)
+    context["who_follows_me"] = Connection.objects.filter(following=request.user)
+    context["files"] = DocumentPost.objects.filter(published_date__lte=timezone.now()).filter(author=request.user)
+    context["downloads"] = Download.objects.filter(user=request.user)
 
     return render(request, 'user_page/index.html', context)
 
+@login_required
+def MyProfile(request, pk):
+    context ={}
+    profile_exist = False
+
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+        if profile:
+            profile_exist = True
+    except UserProfile.DoesNotExist:
+        messages.warning(request, 'no profile')
+    else:
+        context['profile'] = profile
+
+    user = request.user
+    context["user"] = user
+
+    context["followed_by_me"] = Connection.objects.filter(follower=user)
+    context["who_follows_me"] = Connection.objects.filter(following=user)
+    context["files"] = DocumentPost.objects.filter(published_date__lte=timezone.now()).filter(author=user)
+    context["downloads"] = Download.objects.filter(user=user)
+
+
+
+    context["profile_exist"] = profile_exist
+    if profile_exist:
+        context["pro"] = UserProfile.objects.get(user=user)
+
+    return render(request, 'user_page/myprofile.html', context)
 
 @login_required
 def UpdateProfile(request, pk):
 
-    user = User.objects.get(pk=pk)
+    profile = False
 
-    ProfileInlineFormset = inlineformset_factory(User, UserProfile, fields=('phone_no', 'first_name', 'last_name', 'image'))
-
-    if request.user.is_authenticated and request.user.id == user.id:
-        if request.method == "POST":
-            formset = ProfileInlineFormset(request.POST, request.FILES, instance=user)
-
-            if formset.is_valid():
-                formset.save()
-                return redirect('user_page:userdashboard', pk=pk)
-
+    if request.method == "POST":
+        try:
+            userprofile = UserProfile.objects.get(user=request.user)
+        except UserProfile.DoesNotExist:
+            messages.warning(request, 'no profile')
         else:
-            formset = ProfileInlineFormset(instance=user)
-        return render(request, 'user_page/updateprofile.html', { "formset": formset, })
+            userprofile.delete()
+
+        form = ProfileUpdateForm(request.POST, request.FILES)
+
+        if form.is_valid():
+
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            return redirect('user_page:userdashboard', pk=pk)
+
     else:
-        raise PermissionDenied
+        form = ProfileUpdateForm()
+
+    return render(request, 'user_page/updateprofile.html', { 'formset' : form})
 
 
 @login_required
 def Search(request):
+    context = {}
     if request.method=="POST":
         form = SearchForm(request.POST)
+        context['form'] = form
 
         if form.is_valid():
             su=form.cleaned_data['searchuser']
+
+            if su==request.user.username:
+                return render(request, 'user_page/search_form.html',{'form': form})
+
             return redirect('others:dashboard', uname=su)
 
     else:
         form = SearchForm()
+        context['form'] = form
 
-    return render(request, 'user_page/search_form.html',{'form': form})
+    context['users'] = User.objects.filter()
+    context['profiles'] = UserProfile.objects.filter()
 
-
-class FollowersListView(LoginRequiredMixin, generic.ListView):
-    model = Connection
-    template_name = 'user_page/connections_list.html'
-    context_object_name = 'users'
-
-    def get_queryset(self):
-        username = self.kwargs['username']
-        return Connection.objects.filter(following__username=username)
-
-    def get_context_data(self):
-        context = super(FollowersListView, self).get_context_data()
-        context['stat'] = 'FOLLOWERS'
-        return context
+    return render(request, 'user_page/search_form.html', context)
 
 
-class FollowingListView(LoginRequiredMixin, generic.ListView):
-    model = Connection
-    template_name = 'user_page/connections_list.html'
-    context_object_name = 'users'
+@login_required
+def FollowersListView(request, username):
+    context = {}
 
-    def get_queryset(self):
-        username = self.kwargs['username']
-        return Connection.objects.filter(follower__username=username)
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        messages.warning(request, 'no profile')
+    else:
+        context['profile'] = profile
 
-    def get_context_data(self):
-        context = super(FollowingListView, self).get_context_data()
-        context['stat'] = 'FOLLOWING'
-        return context
+    context["users"] = Connection.objects.filter(following__username=username)
+    context['stat'] = 'FOLLOWERS'
+    return render(request, 'user_page/connections_list.html', context )
+
+
+@login_required
+def FollowingListView(request, username):
+    context = {}
+
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        messages.warning(request, 'no profile')
+    else:
+        context['profile'] = profile
+
+    context["users"] = Connection.objects.filter(follower__username=username)
+    context['stat'] = 'FOLLOWING'
+    return render(request, 'user_page/connections_list.html', context )
 
 
 @login_required

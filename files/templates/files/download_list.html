@@ -1,0 +1,17 @@
+{% extends 'user_page/base.html' %}
+{% block fine %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">My Downloads</h1>
+</div>
+<div class="container">
+    {% for download in downloads %}
+    <div class="container">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h3 class="m-0 text-xs font-weight text-info"><a href="{{download.post.document.url}}"><big>{{ download.post.document }} : by {{ download.post.author }}</big></a></h3>
+          </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

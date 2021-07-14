@@ -9,7 +9,13 @@
           <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><h1 class="m-0 font-weight-bold text-warning text-uppercase">{{ post.title }}</h1></div>
           <div class="h5 mb-0 font-weight-bold text-gray-800"><p class='postcontent m-0 text-secondary'>Description : {{ post.description|safe|linebreaksbr }}</p></div>
           <hr>
-          <a class="btn btn-secondary btn-lg " href="{{post.document.url}}" target = "_blank"><i class="fas fa-w fa-file"></i></a>  |  <a class="btn btn-secondary btn-lg" href="{{post.document.url}}" download><i class="fas fa-w fa-download"></i></a>
+          <a class="btn btn-secondary btn-lg text-xs" href="{{post.document.url}}" target = "_blank"><i class="fas fa-w fa-file"></i>  file</a>
+          {% if downloaded %}
+          <div><p class="m-4">You downloaded this file</p></div>
+          {% else %}
+          <a class="btn btn-secondary btn-lg text-xs m-4" href="{{post.document.url}}" download><i class="fas fa-w fa-download"></i>  download</a>
+          <div><a href="{% url 'files:downloadpost' pk=post.pk %}">Save to mydownloads</a></div>
+          {% endif %}
         </div>
       </div>
       <div class="m-4">
@@ -37,15 +43,37 @@
 <hr>
 {% if post.published_date %}
 
-    <a class="btn btn-info btn-sm" href="{% url 'files:like' pk=post.pk %}">
-      <i class="fas fa-w fa-thumbs-up"></i>
-    </a> : <a href="{% url 'files:likers' pk=post.pk %}">__</a>
- |
-    <a class="btn btn-info btn-sm" href="{% url 'files:dislike' pk=post.pk %}">
-      <i class="fas fa-w fa-thumbs-down"></i>
-    </a> : <a href="{% url 'files:dislikers' pk=post.pk %}">__</a>
+{% if liked %}
+<p>You liked this post</p>
+<a class="btn btn-info btn-sm" href="{% url 'files:unlike' pk=post.pk %}">
+  <i class="fas fa-w fa-thumbs-up"></i>
+</a> : <a href="{% url 'files:likers' pk=post.pk %}">{{likes_no.count}}</a>
+|
+<a class="btn btn-info btn-sm">
+  <i class="fas fa-w fa-thumbs-down"></i>
+</a> : <a href="{% url 'files:dislikers' pk=post.pk %}">{{dislikes_no.count}}</a>
 
- 
+{% elif disliked %}
+<p>You disliked this post</p>
+<a class="btn btn-info btn-sm">
+  <i class="fas fa-w fa-thumbs-up"></i>
+</a> : <a href="{% url 'files:likers' pk=post.pk %}">{{likes_no.count}}</a>
+|
+<a class="btn btn-info btn-sm" href="{% url 'files:undislike' pk=post.pk %}">
+  <i class="fas fa-w fa-thumbs-down"></i>
+</a> : <a href="{% url 'files:dislikers' pk=post.pk %}">{{dislikes_no.count}}</a>
+
+{% else %}
+<a class="btn btn-info btn-sm" href="{% url 'files:like' pk=post.pk %}">
+  <i class="fas fa-w fa-thumbs-up"></i>
+</a> : <a href="{% url 'files:likers' pk=post.pk %}">{{likes_no.count}}</a>
+|
+<a class="btn btn-info btn-sm" href="{% url 'files:dislike' pk=post.pk %}">
+  <i class="fas fa-w fa-thumbs-down"></i>
+</a> : <a href="{% url 'files:dislikers' pk=post.pk %}">{{dislikes_no.count}}</a>
+{% endif %}
+
+
 
 <hr>
 <a class="btn btn-dark btn-sm" href="{% url 'files:add_comment_to_post' pk=post.pk %}"><i class="fas fa-w fa-plus"></i><span>   comment</span></a>

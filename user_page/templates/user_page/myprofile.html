@@ -1,18 +1,12 @@
 {% extends 'user_page/base.html' %}
 {% block fine %}
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">{{uname}}</h1>
+    <h1 class="h3 mb-0 text-gray-800">{{user.username}}</h1>
 </div>
 <div class="mb-4">
-      {% if connected %}
-      <a href="{% url 'user_page:unfollow' username=uname %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-w fa-check-circle fa-sm text-white-50"></i> UnFollow</a>
-      {% else%}
-      <a href="{% url 'user_page:follow' username=uname %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-w fa-check-circle fa-sm text-white-50"></i> Follow</a>
-      {% endif %}
-
+     <p class="mb-0 text-primary-800">my page</p>
 </div>
 
-{% if connected %}
 <!-- Content Row -->
 <div class="row">
 
@@ -21,8 +15,8 @@
     <div class="card-body">
       <div class="row no-gutters align-items-center">
         <div class="col mr-2">
-          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="{% url 'user_page:followers' username=uname %}">Followers</a></div>
-          <div class="h5 mb-0 font-weight-bold text-gray-800">{{who_follows_uname.count}}</div>
+          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="{% url 'user_page:followers' username=user.username %}">Followers</a></div>
+          <div class="h5 mb-0 font-weight-bold text-gray-800">{{who_follows_me.count}}</div>
         </div>
         <div class="col-auto"><i class="fas fa-male fa-2x text-gray-300"></i></div>
       </div>
@@ -30,13 +24,14 @@
   </div>
 </div>
 
+
 <div class="col-xl-3 col-md-6 mb-4">
-  <div class="card border-left-primary shadow h-100 py-2">
+  <div class="card border-left-success shadow h-100 py-2">
     <div class="card-body">
       <div class="row no-gutters align-items-center">
         <div class="col mr-2">
-          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="{% url 'user_page:following' username=uname %}">Following</a></div>
-          <div class="h5 mb-0 font-weight-bold text-gray-800">{{followed_by_uname.count}}</div>
+          <div class="text-xs font-weight-bold text-success text-uppercase mb-1"><a href="{% url 'user_page:following' username=user.username %}">Following</a></div>
+          <div class="h5 mb-0 font-weight-bold text-gray-800">{{followed_by_me.count}}</div>
         </div>
         <div class="col-auto"><i class="fas fa-male fa-2x text-gray-300"></i></div>
       </div>
@@ -44,15 +39,30 @@
   </div>
 </div>
 
+
 <div class="col-xl-3 col-md-6 mb-4">
-  <div class="card border-left-primary shadow h-100 py-2">
+  <div class="card border-left-info shadow h-100 py-2">
     <div class="card-body">
       <div class="row no-gutters align-items-center">
         <div class="col mr-2">
-          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="{% url 'others:post_list' uname=uname %}">Posts (Files)</a></div>
+          <div class="text-xs font-weight-bold text-success text-uppercase mb-1"><a href="{% url 'files:post_list' uname=user.username %}">Posts (Files)</a></div>
           <div class="h5 mb-0 font-weight-bold text-gray-800">{{files.count}}</div>
         </div>
         <div class="col-auto"><i class="fas fa-file fa-2x text-gray-300"></i></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-xl-3 col-md-6 mb-4">
+  <div class="card border-left-warning shadow h-100 py-2">
+    <div class="card-body">
+      <div class="row no-gutters align-items-center">
+        <div class="col mr-2">
+          <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"><a href="{% url 'files:download' %}">Downloads</a></div>
+          <div class="h5 mb-0 font-weight-bold text-gray-800">{{downloads.count}}</div>
+        </div>
+        <div class="col-auto"><i class="fas fa-download fa-2x text-gray-300"></i></div>
       </div>
     </div>
   </div>
@@ -76,5 +86,4 @@
 </div>
 {% endif %}
 
-{% endif %}
 {% endblock %}

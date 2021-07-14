@@ -3,71 +3,15 @@
 {% load crispy_forms_tags %}
 {% block fine %}
 
-<!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4"><h1 class="h3 mb-0 text-gray-800">MY PAGE</h1></div>
-
-<!-- Content Row -->
-<div class="row">
-
-<div class="col-xl-3 col-md-6 mb-4">
-  <div class="card border-left-primary shadow h-100 py-2">
-    <div class="card-body">
-      <div class="row no-gutters align-items-center">
-        <div class="col mr-2">
-          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="{% url 'user_page:followers' username=user.username %}">Followers</div>
-          <div class="h5 mb-0 font-weight-bold text-gray-800">__</div>
-        </div>
-        <div class="col-auto"><i class="fas fa-male fa-2x text-gray-300"></i></div>
-      </div>
-    </div>
-  </div>
+<div class="mb-4">
+     <h1 class="mb-0 text-primary-800">Welcome {{user.username}} !!!</h1>
 </div>
 
-
-<div class="col-xl-3 col-md-6 mb-4">
-  <div class="card border-left-success shadow h-100 py-2">
-    <div class="card-body">
-      <div class="row no-gutters align-items-center">
-        <div class="col mr-2">
-          <div class="text-xs font-weight-bold text-success text-uppercase mb-1"><a href="{% url 'user_page:following' username=user.username %}">Following</div>
-          <div class="h5 mb-0 font-weight-bold text-gray-800">__</div>
-        </div>
-        <div class="col-auto"><i class="fas fa-male fa-2x text-gray-300"></i></div>
-      </div>
-    </div>
-  </div>
+<div class="mb-4">
+<a href="{% url 'files:post_new' uname=user.username %}" class="btn btn-warning btn-lg active" role="button" aria-pressed="true"><i class="fas fa-w fa-plus"></i><span> NEW</span></a>
 </div>
-
-
-<div class="col-xl-3 col-md-6 mb-4">
-  <div class="card border-left-info shadow h-100 py-2">
-    <div class="card-body">
-      <div class="row no-gutters align-items-center">
-        <div class="col mr-2">
-          <div class="text-xs font-weight-bold text-success text-uppercase mb-1"><a href="{% url 'files:post_list' uname=user.username %}">Your Posts(Files)</div>
-          <div class="h5 mb-0 font-weight-bold text-gray-800">__</div>
-        </div>
-        <div class="col-auto"><i class="fas fa-file fa-2x text-gray-300"></i></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="col-xl-3 col-md-6 mb-4">
-  <div class="card border-left-warning shadow h-100 py-2">
-    <div class="card-body">
-      <div class="row no-gutters align-items-center">
-        <div class="col mr-2">
-          <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"><a href="#">Downloads</div>
-          <div class="h5 mb-0 font-weight-bold text-gray-800">__</div>
-        </div>
-        <div class="col-auto"><i class="fas fa-download fa-2x text-gray-300"></i></div>
-      </div>
-    </div>
-  </div>
-</div>
-
+<div class="mb-4">
+<a href="{% url 'files:post_draft' uname=user.username %}" class="btn btn-dark btn-sm active" role="button" aria-pressed="true"><span> drafts</span></a>
 </div>
 
 <!-- feed -->

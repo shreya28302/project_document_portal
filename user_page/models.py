@@ -7,26 +7,15 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE, null=True, blank=True)
-    phone_no = models.CharField(max_length = 20,default='')
-    first_name = models.CharField(max_length = 20,default='')
-    last_name = models.CharField(max_length = 20,default='')
-    image = models.ImageField(upload_to='profile_pics')
+    phone_no = models.CharField(max_length = 20, blank=True)
+    first_name = models.CharField(max_length = 20, blank=True)
+    last_name = models.CharField(max_length = 20, blank=True)
+    image = models.ImageField(upload_to='profile_pics/')
     created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.first_name
 
-    def save(self, *args, **kawrgs):
-        super().save(*args, **kawrgs)
-        img = Image.open(self.image.path)
-        if img.height > 300 or img.width > 300:
-            output_size = (300, 300)
-            img.thumbnail(output_size)
-            img.save(self.image.path)
-
-    class Meta:
-        ordering = ["-created_at"]
-        unique_together = ["user", "first_name"]
 
 
 class Connection(models.Model):
