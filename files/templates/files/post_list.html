@@ -16,7 +16,7 @@
           </div>
         <div class="date card-body">
           <p>Posted by : {{ post.author.username }}</p>
-          <p>Published on : {{ post.published_date|date:"D M Y"}}</p>
+          <p>Published on : {{ post.published_date }}</p>
           <a href="{% url 'files:post_detail' pk=post.pk %}">Comments: {{ post.approve_comments.count }}</a>
         </div>
       </div>
