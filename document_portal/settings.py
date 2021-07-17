@@ -25,7 +25,7 @@ STATIC_DIR = os.path.join(BASE_DIR,'static')
 SECRET_KEY = 'dlkf$ab+hhnv6(#-&&xbw^f^l2a^dgxih+o&%($jenpjzu%$b8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -129,7 +129,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR,]
 
