@@ -27,7 +27,7 @@ SECRET_KEY = 'dlkf$ab+hhnv6(#-&&xbw^f^l2a^dgxih+o&%($jenpjzu%$b8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','portal.com']
+ALLOWED_HOSTS = ['127.0.0.1','iitg-document-portal.herokuapp.com']
 
 
 # Application definition
