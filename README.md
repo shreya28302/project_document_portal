@@ -6,7 +6,7 @@ Users can post their file uploads and can download other users post uploads
 users can like,dislike,comment on other users posts. 
 users can follow or unfollow other users.
 
-<h1>https://microsoft-teams-ms.herokuapp.com/</h1> <br />
+<h1>http://shreyachappidi.pythonanywhere.com/</h1> <br />
 
 # Features and Functionalities
 * User Authentication 
@@ -24,7 +24,7 @@ users can follow or unfollow other users.
 
 
 # Demo
-* Open https://microsoft-teams-ms.herokuapp.com/
+* Open http://shreyachappidi.pythonanywhere.com/
 * Signup or signin if u have account
 * update more details in the profile
 * search of any user and follow them to see their posts
