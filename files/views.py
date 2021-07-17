@@ -32,7 +32,7 @@ def postdownload(request, pk):
         created = Download.objects.get_or_create(post=post, user=request.user)
 
         if not created:
-            messages.warning(request, 'You\'ve already downloaded the post.')
+            messages.warning(request, 'You have already downloaded the post.')
 
     except DocumentPost.DoesNotExist:
         messages.warning(request, 'post does not exist')
@@ -205,7 +205,7 @@ def like_post_view(request, pk):
         created = Like.objects.get_or_create(post=post, user=request.user)
 
         if not created:
-            messages.warning(request, 'You\'ve already liked the post.')
+            messages.warning(request, 'You have already liked the post.')
 
     except DocumentPost.DoesNotExist:
         messages.warning(request, 'post does not exist')
@@ -232,7 +232,7 @@ def dislike_post_view(request, pk):
         created = Dislike.objects.get_or_create(post=post, user=request.user)
 
         if not created:
-            messages.warning(request, 'You\'ve already disliked the post.')
+            messages.warning(request, 'You have already disliked the post.')
 
     except DocumentPost.DoesNotExist:
         messages.warning(request, 'post does not exist')

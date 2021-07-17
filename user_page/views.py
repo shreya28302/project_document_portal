@@ -21,7 +21,7 @@ def UserDashboard(request, pk):
     try:
         profile = UserProfile.objects.get(user=request.user)
     except UserProfile.DoesNotExist:
-        messages.warning(request, 'no profile')
+        pass
     else:
         context['profile'] = profile
 
@@ -43,7 +43,7 @@ def MyProfile(request, pk):
         if profile:
             profile_exist = True
     except UserProfile.DoesNotExist:
-        messages.warning(request, 'no profile')
+        pass
     else:
         context['profile'] = profile
 
@@ -72,7 +72,7 @@ def UpdateProfile(request, pk):
         try:
             userprofile = UserProfile.objects.get(user=request.user)
         except UserProfile.DoesNotExist:
-            messages.warning(request, 'no profile')
+            pass
         else:
             userprofile.delete()
 
@@ -123,7 +123,7 @@ def FollowersListView(request, username):
     try:
         profile = UserProfile.objects.get(user=request.user)
     except UserProfile.DoesNotExist:
-        messages.warning(request, 'no profile')
+        pass
     else:
         context['profile'] = profile
 
@@ -139,7 +139,7 @@ def FollowingListView(request, username):
     try:
         profile = UserProfile.objects.get(user=request.user)
     except UserProfile.DoesNotExist:
-        messages.warning(request, 'no profile')
+        pass
     else:
         context['profile'] = profile
 
@@ -166,10 +166,10 @@ def follow_view(request, *args, **kwargs):
         created = Connection.objects.get_or_create(follower=follower, following=following)
 
         if (created):
-            messages.success(request, 'You\'ve successfully followed {}.'.format(following.username))
+            messages.success(request, 'You have successfully followed {}.'.format(following.username))
 
         else:
-            messages.warning(request, 'You\'ve already followed {}.'.format(following.username))
+            messages.warning(request, 'You have already followed {}.'.format(following.username))
 
     return redirect('others:dashboard', uname=following.username)
 
@@ -186,7 +186,7 @@ def unfollow_view(request, *args, **kwargs):
         else:
             unfollow = Connection.objects.get(follower=follower, following=following)
             unfollow.delete()
-            messages.success(request, 'You\'ve just unfollowed {}.'.format(following.username))
+            messages.success(request, 'You have just unfollowed {}.'.format(following.username))
 
     except User.DoesNotExist:
         messages.warning(request, '{} is not a registered user.'.format(kwargs['username']))

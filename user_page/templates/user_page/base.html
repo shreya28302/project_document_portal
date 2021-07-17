@@ -18,6 +18,14 @@
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
 
+    {% if messages %}
+    {% for message in messages %}
+    <script>
+    alert("{{ message }}");
+    </script>
+    {% endfor %}
+    {% endif %}
+
 </head>
 
 <body id="page-top">
@@ -44,23 +52,21 @@
             <!-- Heading -->
             <div class="sidebar-heading">Interface</div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-              <a class="nav-link collapsed" href="{% url 'user_page:myprofile' pk=user.id %}"
-               data-toggle="collapse" data-target="#collapseTwo"
-               aria-expanded="true" aria-controls="collapseTwo">
-               <i class="fas fa-fw "></i>
-               <span>My Profile</span>
-             </a>
-            </li>
-
-            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
               <a class="nav-link collapsed" href="{% url 'user_page:userdashboard' pk=user.id %}"
                data-toggle="collapse" data-target="#collapseTwo"
                aria-expanded="true" aria-controls="collapseTwo">
                <i class="fas fa-fw "></i>
                <span>My Feed</span>
+             </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="{% url 'user_page:myprofile' pk=user.id %}"
+               data-toggle="collapse" data-target="#collapseTwo"
+               aria-expanded="true" aria-controls="collapseTwo">
+               <i class="fas fa-fw "></i>
+               <span>My Profile</span>
              </a>
             </li>
 
@@ -138,54 +144,18 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Topbar Search
-                    <form method="POST" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
 
-                                <button class="btn btn-primary" type="button" onclick="location.href = '{% url 'others:dashboard' uname=user.username %}';">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>-->
                     <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
                       <div class="input-group-append">
-                        <a class="form-control bg-light border-0 small btn btn-primary" href="{% url 'user_page:search' %}" aria-label="Search" aria-describedby="basic-addon2"><i class="fas fa-search fa-sm"></i> Search for other users</a>
+                        <a class="form-control bg-dark border-0 small btn btn-primary" href="{% url 'user_page:search' %}" aria-label="Search" aria-describedby="basic-addon2"><i class="fas fa-search fa-sm"></i> Search for other users</a>
                         </div>
                     </div>
                   </div>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-
+                      {% if profile %}
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="{% url 'user_page:updateprofile' pk=user.id %}" id="userDropdown" role="button"
@@ -194,6 +164,7 @@
                                 <img src="{{profile.image.url}}" alt="profile" class="img-profile rounded-circle">
                             </a>
                         </li>
+                        {% endif %}
 
                     </ul>
 

@@ -22,7 +22,7 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-light">
 
     <div class="container">
 
@@ -63,7 +63,7 @@
                     <h3 class="m-0 text-dark card-header py-3 d-flex flex-row align-items-center justify-content-between"><a href="{% url 'others:dashboard' uname=us.username %}">{{ us.username }}</a></h3>
                     {% for profile in profiles %}
                     {% if profile.user == us %}
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between"><img src="{{profile.image.url}}" alt="profile"></div>
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between"><img src="{{profile.image.url}}" alt="profile" width="400px" height="200px"></div>
                     <div class="date card-body">
                       <h3 class="m-0 font-weight-bold text-dark">{{ profile.first_name|safe|linebreaksbr }} {{profile.last_name|safe|linebreaksbr}}</h3>
                     </div>
