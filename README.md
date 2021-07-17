@@ -5,8 +5,8 @@ This is a Django based Documents uploading website .
 Users can post their file uploads and can download other users post uploads
 users can like,dislike,comment on other users posts. 
 users can follow or unfollow other users.
-
-<h1>http://shreyachappidi.pythonanywhere.com/</h1> <br />
+[Video Demo](https://drive.google.com/file/d/1LOE1N5ikLd8stLfgUfYI4GYbm5gZQl0d/view?usp=sharing)
+[Deployed Link](http://shreyachappidi.pythonanywhere.com/)
 
 # Features and Functionalities
 * User Authentication 
