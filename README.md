@@ -56,8 +56,10 @@ users can follow or unfollow other users.
   * git clone https://github.com/shreya28302/project_document_portal
   * cd project_document_portal
 * Install dependencies
+  * pip install django 
   * pip install django-bootstrap3
   * pip install django-crispy-forms
+  * pip install pillow
 * Start the server
   * python manage.py runserver
 * open http://127.0.0.1:8000/ in your browser
