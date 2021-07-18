@@ -35,7 +35,7 @@ users can follow or unfollow other users.<br />
 * goto "myfeed" to see the feed and make a post if you want to post
 * goto "myposts to see your posts
 * goto "followers" to see your followers
-* goto "follwing" to see user you follow
+* goto "follwing" to see the user you follow
 * goto "updateprofile" if you want to update your profile
 * goto "Downloads" to see your saved downloads
 
